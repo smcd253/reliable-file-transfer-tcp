@@ -2,6 +2,7 @@
 A modification of the TCP protocol to increase throughput on lossy links.
 
 
+<<<<<<< HEAD
 ## Modifying TCP Backoff Through the Kernel
 ### 1. Network retry limit: 
     run following and get output
@@ -25,3 +26,10 @@ A modification of the TCP protocol to increase throughput on lossy links.
     TCP options listed under 
 
 Source: https://whitequark.org/blog/2011/09/12/tweaking-linux-tcp-stack-for-lossy-wireless-networks/
+=======
+zane:
+
+Useful parts of TCP/IP Illustrated Books
+- Algorithms: v1 Chapters 13 - 16
+- Code comments: v2 Chapters 24 - 30
+>>>>>>> 300eb0f07a605dd4d579fad06d0388bda8c028a6
