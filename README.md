@@ -3,24 +3,17 @@ A modification of the TCP protocol to increase throughput on lossy links.
 
 ## Modifying TCP Backoff Through the Kernel
 ### 1. Network Retry Limit
-##### run the following:
+##### run the following to get current retry limit settings:
     iwconfig wlan0 | grep Retry
 
-##### to get following output:
-    Retry  long limit:7   RTS thr:off   Fragment thr:off
-
-run following to set retry limit to 0:
+##### run the following to set retry limit to 0:
     iwconfig wlan0 retry limit 0
 
 ### 2. TCP Stack
-run following to get tcp options:
+##### run following to get tcp options:
     man 7 tcp 
 
-'''
-git hello
-'''
-
-runn the following to make a modification to a tcp parameter:
+##### run the following to make a modification to a tcp parameter:
     sysctl net.ipv4.tcp_foo=1 
 
 Source: https://whitequark.org/blog/2011/09/12/tweaking-linux-tcp-stack-for-lossy-wireless-networks/
