@@ -4,7 +4,9 @@ A modification of the TCP protocol to increase throughput on lossy links.
 ## Modifying TCP Backoff Through the Kernel
 ### 1. Network Retry Limit
 run following:
+'''
     iwconfig wlan0 | grep Retry
+'''
 
 to get following output:
     Retry  long limit:7   RTS thr:off   Fragment thr:off
