@@ -16,6 +16,10 @@ run following to set retry limit to 0:
 run following to get tcp options:
     man 7 tcp 
 
+'''
+git hello
+'''
+
 runn the following to make a modification to a tcp parameter:
     sysctl net.ipv4.tcp_foo=1 
 
