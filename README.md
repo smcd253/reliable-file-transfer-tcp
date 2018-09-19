@@ -24,3 +24,7 @@ Useful parts of TCP/IP Illustrated Books
 - Algorithms: v1 Chapters 13 - 16
 - Code comments: v2 Chapters 24 - 30
 >>>>>>> 300eb0f07a605dd4d579fad06d0388bda8c028a6
+
+Ali:
+Custom Compiled Kernel for Ubuntu
+https://www.linode.com/docs/tools-reference/custom-kernels-distros/custom-compiled-kernel-debian-ubuntu/
