@@ -27,7 +27,7 @@ Useful parts of TCP/IP Illustrated Books
 
 Ali:
 
-Custom Compiled Kernel for Ubuntu
+Custom Compiled Kernel for Ubuntu  
 https://www.linode.com/docs/tools-reference/custom-kernels-distros/custom-compiled-kernel-debian-ubuntu/
 
 This link will help you in understanding about what we have to do in a better way.   
