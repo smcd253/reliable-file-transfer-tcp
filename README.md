@@ -29,3 +29,6 @@ Ali:
 
 Custom Compiled Kernel for Ubuntu
 https://www.linode.com/docs/tools-reference/custom-kernels-distros/custom-compiled-kernel-debian-ubuntu/
+
+This link will help you in understanding about what we have to do in a better way.   
+https://lwn.net/Articles/308919/
