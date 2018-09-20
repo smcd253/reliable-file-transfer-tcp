@@ -32,3 +32,7 @@ https://www.linode.com/docs/tools-reference/custom-kernels-distros/custom-compil
 
 This link will help you in understanding about what we have to do in a better way.   
 https://lwn.net/Articles/308919/
+
+
+Follow this guide to download and compile kernel  
+https://medium.freecodecamp.org/building-and-installing-the-latest-linux-kernel-from-source-6d8df5345980
