@@ -17,6 +17,19 @@ A modification of the TCP protocol to increase throughput on lossy links.
     sysctl net.ipv4.tcp_foo=1 
 
 Source: https://whitequark.org/blog/2011/09/12/tweaking-linux-tcp-stack-for-lossy-wireless-networks/
+
+### 3. Useful Links
+Tune TCP for Linux: http://web.archive.org/web/20111213021347/http://fasterdata.es.net:80/fasterdata/host-tuning/linux
+
+### 4. Notes for Implementation
+1. Try Scalable TCP
+2. Try model-based window-sizing
+
+### 5. To Do 9/20 12PM Meeting
+1. Spencer: Try switching protocols on DETER through kernel commands you found (Tune TCP for Linux link above)
+2. Spencer: Install new kernel on host VM
+3. Spencer: Look into model-based window size (make as a function of BW Delay and Link Loss )
+
 =======
 zane:
 
