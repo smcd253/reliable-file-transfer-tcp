@@ -76,9 +76,9 @@ net/ipv4/tcp_output.c
 
 add these changes 
 
-if (icsk->icsk_backoff < sysctl_tcp_retries2)
-			icsk->icsk_backoff++;
-		//if (icsk->icsk_backoff < sysctl_tcp_retries2)
-		//	icsk->icsk_backoff++;
-		icsk->icsk_probes_out++;
+if (icsk->icsk_backoff < sysctl_tcp_retries2)  
+			icsk->icsk_backoff++;  
+			//if (icsk->icsk_backoff < sysctl_tcp_retries2)  
+			//icsk->icsk_backoff++;  
+			icsk->icsk_probes_out++;
 
