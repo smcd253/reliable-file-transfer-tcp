@@ -1,5 +1,5 @@
 
-1.  make sure to do both every time, does not build without this
+1.  make sure to do both every time, does not build without update
 - sudo apt-get update
 - sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bison flex libelf-dev bc
 
