@@ -55,3 +55,10 @@ https://medium.freecodecamp.org/building-and-installing-the-latest-linux-kernel-
 
 TCP congestion control algorithms  
 https://linuxgazette.net/135/pfeiffer.html
+
+Simulate latency . 
+https://www.binarytides.com/linux-commands-monitor-network/
+
+Simulate loss .
+https://bencane.com/2012/07/16/tc-adding-simulated-network-latency-to-your-linux-server/
+
