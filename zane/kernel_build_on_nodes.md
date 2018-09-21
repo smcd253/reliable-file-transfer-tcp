@@ -9,9 +9,8 @@
 - make menuconfig
 At the end in GUI, save then enter then exit
 
-3. Do these one by one, while in the linux directory if you put all together the
-node freezes sometimes and you get forced out of ssh session. Each takes around
-one hour, reboot system first if there's an error.
+3. Do these one by one, while in the  smae kernel directory. If you put all
+together the node freezes sometimes and you get forced out of ssh session. Each takes around one hour, reboot system first if there's an error.
 - sudo make -j 4
 - sudo make modules_install -j 4  
 - sudo make install -j 4
