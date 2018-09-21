@@ -62,3 +62,23 @@ https://www.binarytides.com/linux-commands-monitor-network/
 Simulate loss .
 https://bencane.com/2012/07/16/tc-adding-simulated-network-latency-to-your-linux-server/
 
+files for expo_backoff modification  
+net/ipv4/tcp_timer.c
+
+add these changes  
+
+icsk->icsk_backoff++;
+	//icsk->icsk_backoff++;
+	icsk->icsk_backoff = 0;
+	printk(KERN_INFO "backoff is zero\n");
+
+net/ipv4/tcp_output.c
+
+add these changes 
+
+if (icsk->icsk_backoff < sysctl_tcp_retries2)
+			icsk->icsk_backoff++;
+		//if (icsk->icsk_backoff < sysctl_tcp_retries2)
+		//	icsk->icsk_backoff++;
+		icsk->icsk_probes_out++;
+
