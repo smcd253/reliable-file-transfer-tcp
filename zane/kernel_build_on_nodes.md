@@ -18,6 +18,6 @@ one hour, reboot system first if there's an error.
 
 4. Reboot, takes 5 minutes, check status in deterlab in browser, where the
 physical addresses are a the bottom of the page. The other commands are not
-necessary because we use a different node at each swap in.
+necessary because we use a different pc at each swap in.
 - sudo shutdown -r now
 - uname -r
