@@ -67,9 +67,9 @@ net/ipv4/tcp_timer.c
 
 add these changes  
 
-icsk->icsk_backoff++;
-	//icsk->icsk_backoff++;
-	icsk->icsk_backoff = 0;
+icsk->icsk_backoff++;  
+	//icsk->icsk_backoff++;  
+	icsk->icsk_backoff = 0;  
 	printk(KERN_INFO "backoff is zero\n");
 
 net/ipv4/tcp_output.c
