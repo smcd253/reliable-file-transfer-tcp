@@ -82,3 +82,8 @@ add these changes
 + //icsk->icsk_backoff++;  
 
 (-) subtract (+)add
+
+command to change congestion algo is  
+sudo sysctl -w net.ipv4.tcp_congestion_control=<algo name>  
+I have found scalable to perform better then others but it is still less then 100kbps avg  
+    sudo sysctl -w net.ipv4.tcp_congestion_control=scalable
