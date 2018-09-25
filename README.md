@@ -22,6 +22,7 @@ Source: https://whitequark.org/blog/2011/09/12/tweaking-linux-tcp-stack-for-loss
 Tune TCP for Linux: http://web.archive.org/web/20111213021347/http://fasterdata.es.net:80/fasterdata/host-tuning/linux
 Simulate Link Delay Linux: https://bencane.com/2012/07/16/tc-adding-simulated-network-latency-to-your-linux-server/
 Simulate Link Loss Linux: https://stackoverflow.com/questions/614795/simulate-delayed-and-dropped-packets-on-linux
+TCP Veno: https://www.ie.cuhk.edu.hk/fileadmin/staff_upload/soung/Journal/J3.pdf
 
 ### 4. Notes for Implementation
 1. Try Scalable TCP
