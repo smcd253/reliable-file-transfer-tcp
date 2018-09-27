@@ -122,22 +122,22 @@ static void tcp_honey_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 /*	if (!tcp_is_cwnd_limited(sk))
 		return;
 */
-	if (tcp_in_slow_start(tp)){
-		/* in slow start, double send window*/
-		printk(KERN_DEBUG "tcp is in slow start\n");
-		inc = tp->snd_cwnd;
-	} else {
-		/* congestion avoidance */
-		printk(KERN_DEBUG "tcp is NOT in slow start\n");
-		inc = 1;
-	}
+	// if (tcp_in_slow_start(tp)){
+	// 	/* in slow start, double send window*/
+	// 	printk(KERN_DEBUG "tcp is in slow start\n");
+	// 	inc = tp->snd_cwnd;
+	// } else {
+	// 	/* congestion avoidance */
+	// 	printk(KERN_DEBUG "tcp is NOT in slow start\n");
+	// 	inc = 1;
+	// }
 	printk(KERN_DEBUG "honey window size: %d\n", tp->snd_cwnd);
 
-	if ((tp->snd_cwnd >> 1U) + (inc >> 1U) > (tp->snd_cwnd_clamp >> 1U)){
-		tp->snd_cwnd = (tp->snd_cwnd >> 1U) + (tp->snd_cwnd_clamp >> 1u);
-	} else {
-		tp->snd_cwnd += inc;
-	}
+	// if ((tp->snd_cwnd >> 1U) + (inc >> 1U) > (tp->snd_cwnd_clamp >> 1U)){
+	// 	tp->snd_cwnd = (tp->snd_cwnd >> 1U) + (tp->snd_cwnd_clamp >> 1u);
+	// } else {
+	// 	tp->snd_cwnd += inc;
+	// }
 	tp->snd_cwnd = 65000;
 
 	printk(KERN_DEBUG "honey window size : %d\n", tp->snd_cwnd);
