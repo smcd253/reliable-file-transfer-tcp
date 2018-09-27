@@ -18,7 +18,6 @@
 #include <linux/module.h>
 #include <linux/skbuff.h>
 #include <linux/inet_diag.h>
-#include <linux/printk.h> // for debugging purposes
 #include <net/tcp.h>
 
 #define TCP_AZS_INIT_RTT 1000000 /* 1 second */
@@ -26,8 +25,8 @@
 
 /* azs variables */
 struct azs{
-	bool	azs_en;
-	bool	if_cong;
+	u8	azs_en;
+	u8	if_cong;
 	u32		rtt_min;
 	u32		rtt;
 };
@@ -36,16 +35,12 @@ struct azs{
 static void tcp_azs_init(struct sock *sk)
 {
 	struct azs *azs = inet_csk_ca(sk);
-	printk(KERN_DEBUG "START - tcp_azs_init.....................\n");
 	
 	// initialize AZS variables (RTT and RTT_MIN are initializes to 1 second)
-	azs->azs_en = true;
-	azs->if_cong = false;
+	azs->azs_en = 1;
+	azs->if_cong = 0;
 	azs->rtt_min = TCP_AZS_INIT_RTT;
 	azs->rtt = TCP_AZS_INIT_RTT;
-
-	printk(KERN_DEBUG "END - tcp_azs_init.....................\n");
-
 }
 
 /* when packet is acked: 
@@ -57,9 +52,6 @@ static void tcp_azs_pkts_acked(struct sock *sk, u32 cnt, s32 rtt_us)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct azs *azs = inet_csk_ca(sk);
-	printk(KERN_DEBUG "START - tcp_azs_pkts_acked...................\n");
-
-	printk(KERN_DEBUG "Packet ACK Treshold Size: %d\n", tp->snd_ssthresh);
 
 	// if we read a new rtt from the network, put it into the azs rtt
 	if (rtt_us > 0)
@@ -68,50 +60,22 @@ static void tcp_azs_pkts_acked(struct sock *sk, u32 cnt, s32 rtt_us)
 	// store the minimum rtt
 	azs->rtt_min = min(azs->rtt_min, azs->rtt);
 	
-	printk(KERN_DEBUG "Packet ACK AZS Window Size: %d\n", tp->snd_cwnd);
-	
 	// force the send window size to our default window size
 	tp->snd_cwnd = DEFAULT_AZS_WINDOW_SIZE;
-	printk(KERN_DEBUG "ED - tcp_azs_pkts_acked...................\n");
 }
 
 /*
 * force default window size
 */
 static u32 tcp_azs_undo_cwnd(struct sock *sk) {
-	// print out current window size
-	printk(KERN_DEBUG "undo_cwnd............\n");
-	printk(KERN_DEBUG "azs window size: %d\n", ((struct tcp_sock *)tcp_sk(sk))->snd_cwnd);
-	// return default
 	return DEFAULT_AZS_WINDOW_SIZE;
 }
 
 static void tcp_azs_state(struct sock *sk, u8 ca_state)
 {
 	struct azs *azs = inet_csk_ca(sk);
-	printk(KERN_DEBUG "START - tcp_azs_state...................\n");
-
 	// enable azs when state function is called
-	azs->azs_en = true;
-
-	// printk(KERN_DEBUG " state = %d\n", ca_state);
-	printk(KERN_DEBUG "azs window size after state %d: %d\n", ca_state, ((struct tcp_sock *)tcp_sk(sk))->snd_cwnd);
-	printk(KERN_DEBUG "END - tcp_azs_state...................\n");
-
-}
-
-/* 
-* detect congestion by testing change in rtt
-* NOT CALLED
-*/
-static void tcp_azs_congestion_detection(struct honey *honey)
-{
-	printk(KERN_DEBUG "START - tcp_azs_congestion_detection...................\n");
-
-	// if our rtt changes, then our line is congested
-	honey->if_congested = (honey->rtt > honey->rtt_min << 1U);
-
-	printk(KERN_DEBUG "tcp_honey_congestion_det--------end\n");
+	azs->azs_en = 1;
 }
 
 /*
@@ -121,17 +85,7 @@ static void tcp_azs_congestion_detection(struct honey *honey)
 static void tcp_azs_cwnd_event(struct sock *sk, enum tcp_ca_event event)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
-	printk(KERN_DEBUG "START - tcp_azs_cwnd_event...................\n");
-	// struct honey *honey = inet_csk_ca(sk);
-
-	printk(KERN_DEBUG "EVENT : %d\n", event);
-	printk(KERN_DEBUG "azs window size (BEFORE default): %d\n", tp->snd_cwnd);
-
 	tp->snd_cwnd = DEFAULT_AZS_WINDOW_SIZE;
-
-	printk(KERN_DEBUG "azs window size (AFTER default): %d\n", tp->snd_cwnd);
-
-	printk(KERN_DEBUG "END - tcp_azs_cwnd_event...................\n");
 }
 
 /* instead of relying on veno's dynamic window sizing for congestion avoidance,
@@ -142,23 +96,13 @@ static void tcp_azs_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct azs *azs = inet_csk_ca(sk);
 
-	printk(KERN_DEBUG "START - tcp_azs_cong_avoid...................\n");
-
-	printk(KERN_DEBUG "socket window size: %d\n", tp->snd_cwnd);
-
 	// if azs is not enabled, default to veno
 	if (!azs->ezs_en) {
 		tcp_veno_cong_avoid(sk, ack, acked);
 		return;
 	}
 
-	// tcp_azs_congestion_detection(honey);
-
 	tp->snd_cwnd = DEFAULT_AZS_WINDOW_SIZE;
-
-	printk(KERN_DEBUG "azs window size (AFTER default): %d\n", tp->snd_cwnd);
-	printk(KERN_DEBUG "slow start thresh (AFTER default): %d\n", tp->snd_ssthresh);
-	printk(KERN_DEBUG "END - tcp_azs_cong_avoid...................\n");
 }
 
 /*
@@ -184,18 +128,14 @@ static struct tcp_congestion_ops tcp_azs __read_mostly = {
 
 static int __init tcp_azs_register(void)
 {
-	printk(KERN_DEBUG "START - tcp_azs_register...................\n");
 	BUILD_BUG_ON(sizeof(struct azs) > ICSK_CA_PRIV_SIZE);
 	tcp_register_congestion_control(&tcp_azs);
-	printk(KERN_DEBUG "END - tcp_azs_register...................\n");
 	return 0;
 }
 
 static void __exit tcp_azs_unregister(void)
 {
-	printk(KERN_DEBUG "START - tcp_azs_unregister...................\n");
 	tcp_unregister_congestion_control(&tcp_azs);
-	printk(KERN_DEBUG "END - tcp_azs_unregister...................\n");
 }
 
 module_init(tcp_honey_register);
